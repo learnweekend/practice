@@ -1,13 +1,11 @@
 
 /**
-
  Reverse a given String
-
 */
 public class StringReverse {
 
   public static void main(String args[]) {
-    String word = "I am reversed";
+    String word = "Reverse me";
     String reverse1 = reverse(word);
     String reverse2 = reverse(word, new StringBuilder());
     System.out.println(reverse1);
