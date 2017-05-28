@@ -1,5 +1,5 @@
 /**
- Given input string as brackets - ()() only.
+ Given input string as brackets (Parentheses only).
  Output : Return true if it is valid parenthesis or false
 */
 import java.util.Stack;
