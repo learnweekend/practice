@@ -2,16 +2,13 @@
  Given input string as brackets - ()() only.
  Output : Return true if it is valid parenthesis or false
 */
-
 import java.util.Stack;
 
 public class ParenthesesMatch {
-
   public static void main(String args[]) {
     String parenthesis = "()()";
     boolean isValid1 = validateparenthesis(parenthesis);
     boolean isValid2 = validateparenthesisV2(parenthesis);
-
     System.out.println(isValid1);
     System.out.println(isValid2);
   }
@@ -21,16 +18,14 @@ public class ParenthesesMatch {
   // Runtime : O(N)
   // Space   : O(1)
   private static boolean validateparenthesisV2(String theStr) {
-
     if(theStr == null || theStr.length() == 0)
         throw new IllegalArgumentException();
-
     int count = 0;
 
     for(int i = 0; i < theStr.length(); i++) {
       char ch = theStr.charAt(i);
 
-      if(ch == '(' || ch == ')')
+     if(ch == '(' || ch == ')')
         count += getCharValue(ch);
       else
         return false;  // invalid input characters other than '(' or ')'
@@ -44,7 +39,7 @@ public class ParenthesesMatch {
     if(c == ')')
       return -1;
 
-    return 0;
+   return 0;
   }
 
   // Solution 2 : Have additional memory (stack) to store open parenthesis
@@ -52,9 +47,7 @@ public class ParenthesesMatch {
   // make sure the stack is empty for valid parenthesis.
   // Runtime : O(N)
   // Space   : O(N)
-
   private static boolean validateparenthesis(String theStr) {
-
     if(theStr == null || theStr.length() == 0)
         throw new IllegalArgumentException();
 
