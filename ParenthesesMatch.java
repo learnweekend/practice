@@ -24,8 +24,7 @@ public class ParenthesesMatch {
 
     for(int i = 0; i < theStr.length(); i++) {
       char ch = theStr.charAt(i);
-
-     if(ch == '(' || ch == ')')
+      if(ch == '(' || ch == ')')
         count += getCharValue(ch);
       else
         return false;  // invalid input characters other than '(' or ')'
