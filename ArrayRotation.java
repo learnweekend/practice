@@ -82,6 +82,7 @@ public class ArrayRotation {
   private static void rotateV2(List<Integer> list, int k) {
     if(list == null || list.size() <= 1)
       return;
+    k = k % list.size();
     for(int i = 0; i < k; i++) {
       int val = list.remove(0);
       list.add(val);
