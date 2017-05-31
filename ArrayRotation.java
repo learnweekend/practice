@@ -2,7 +2,6 @@
  Given an Integer array, rotate it left by k times.
 */
 import java.util.*;
-
 public class ArrayRotation {
   public static void main(String args[]) {
     int[] intArr = {1, 2, 3, 4, 5};
@@ -18,7 +17,6 @@ public class ArrayRotation {
     rotateV2(list, k);
     //rotateBruteForce(intArr, k);
   }
-
   /*
     Solution 0: brute-force, take a new array and copy the elements from K to N-1
     and copy the elements from  0 to K - 1
@@ -47,10 +45,10 @@ public class ArrayRotation {
   }
   /*
     Solution 1: reverse the first half (from 0 to k)
-                reverse the second half (from k to end)
-                reverse the entire array
-                Runtime : O(N)
-                Space   : O(1)
+    reverse the second half (from k to end)
+    reverse the entire array
+    Runtime : O(N)
+    Space   : O(1)
   */
   private static void rotateV1(int[] arr, int numOfRotations) {
     if(arr == null || arr.length <= 1)
@@ -76,13 +74,12 @@ public class ArrayRotation {
   }
   /*
     Solution 2: Remove K elements from start of list and add at the end
-                Runtime : O(k)
-                Space   : O(1)
+    Runtime : O(k)
+    Space   : O(1)
   */
   private static void rotateV2(List<Integer> list, int k) {
     if(list == null || list.size() <= 1)
       return;
-    k = k % list.size();
     for(int i = 0; i < k; i++) {
       int val = list.remove(0);
       list.add(val);
