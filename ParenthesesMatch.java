@@ -1,5 +1,5 @@
 /**
- Given input string as brackets (Parentheses only).
+ Given input string as brackets - ()() only.
  Output : Return true if it is valid parenthesis or false
 */
 import java.util.Stack;
@@ -22,6 +22,7 @@ public class ParenthesesMatch {
 
     for(int i = 0; i < theStr.length(); i++) {
       char ch = theStr.charAt(i);
+
       if(ch == '(' || ch == ')')
         count += getCharValue(ch);
       else
@@ -29,13 +30,14 @@ public class ParenthesesMatch {
     }
       return (count == 0 ? true : false);
   }
-
+  // helper method assign value to open and close parenthesis
   private static int getCharValue(char c) {
     if(c == '(')
       return 1;
     if(c == ')')
       return -1;
-   return 0;
+
+    return 0;
   }
   // Solution 2 : Have additional memory (stack) to store open parenthesis
   // pop from stack when we see a close parenthesis
@@ -60,6 +62,7 @@ public class ParenthesesMatch {
     }
     if(!stack.isEmpty())
       return false;
+
     return true;
   }
 }
