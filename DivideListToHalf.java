@@ -1,4 +1,7 @@
-public class DivideListToHalf {
+ /**
+  Problem : Given a Linked List of UNKNOWN length, devide the list into two equal parts.
+  */
+ublic class DivideListToHalf {
   public static void main(String args[]) {
     Node head = new Node(1);
     head.next = new Node(2);

@@ -1,3 +1,6 @@
+/**
+  Problem :  Given a Linked List, print the elements in reverse order using iterative and Recursion.
+  */
 public class ReverseLinkedList {
   public static void main(String args[]) {
       Node head = new Node(1);
@@ -27,7 +30,7 @@ public class ReverseLinkedList {
     System.out.print(node.data + "  ");
   }
   /**
-    Solution 1:  Reverse linked list iterative approach
+    Solution 2:  Reverse linked list iterative approach
     Note : The origianl list IS modified
     Runtime : O(N)
     Space   : O(1)
@@ -58,10 +61,8 @@ public class ReverseLinkedList {
   private static class Node {
     private int data;
     private Node next;
-
     private Node(int val) {
       this.data = val;
     }
   }
-
 }
