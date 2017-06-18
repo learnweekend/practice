@@ -6,9 +6,10 @@ The contiguous subarray that gives the maximum possible sum is [2, 5], with a su
 */
 public  class ArrayMaxConsecutiveSum {
   public static void main(String[] args){
-    //int[] a = { -2, 2, 5, -11, 6}; // 7
-    int[] a = {11, -2, 1, -4, 5, -3, 2, 2, 2}; // 14
+    int[] a = { -2, 2, 5, -11, 6}; // 7
+    //int[] a = {11, -2, 1, -4, 5, -3, 2, 2, 2}; // 14
     System.out.println(findMaxConsecutiveSum(a));
+    System.out.println(findMaxConsecutiveSumV2(a));
   }
  /* Solution : Assign first element to currSum and maxSum
   Loop through the array and calculate max of (currSum + nextElement, nextElement)
@@ -28,6 +29,22 @@ public  class ArrayMaxConsecutiveSum {
       if(currSum > maxSum)
         maxSum = currSum;
       }
+    return maxSum;
+  }
+
+  private static int findMaxConsecutiveSumV2(int[] arr) {
+    int currSum = 0;
+    int maxSum = Integer.MIN_VALUE;
+
+    for(int i = 0; i < arr.length; i++){
+      if(currSum <= 0)
+        currSum = arr[i];
+      else
+        currSum = currSum + arr[i];
+
+      if(currSum > maxSum)
+        maxSum = currSum;
+    }
     return maxSum;
   }
 }
