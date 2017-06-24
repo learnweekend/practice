@@ -1,6 +1,5 @@
 /*
 Note: Write a solution with O(n) time complexity and O(1) additional space complexity,
-
 Given an array a that contains only numbers in the range from 1 to a.length,
 find the first duplicate number for which the second occurrence has the minimal index.
 In other words, if there are more than 1 duplicated numbers, return the number for which the
@@ -31,10 +30,10 @@ public class FindDuplicatesFrom1ToN {
     for(int i = 0; i < arr.length; i++) {
       int curr = Math.abs(arr[i]);
       if(arr[curr - 1] > 0)  // Note : minus one,because the numbers are from 1 to N, if numbers are from 0 to N - 1, then no minus 1
-        arr[curr - 1] = -arr[curr - 1];
+        arr[curr - 1] = -arr[curr - 1]; // flip the value to negative
       else
-        return curr;
+        return curr;  // duplicates found
     }
-    return - 1;
+    return - 1;  // duplicates not found
   }
 }
