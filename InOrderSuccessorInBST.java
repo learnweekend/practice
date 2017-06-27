@@ -17,7 +17,7 @@ public class InOrderSuccessorInBST {
     Node result = findInOrderSuccessor(tree.left.right.left); // 12
     System.out.println(result == null ? "Not found" :  "In order successor = " + result.data); */
 
-    /*Node root = new Node(15);
+    Node root = new Node(15);
 		root.left = new Node(6);  root.left.parent = root;
 		root.left.left = new Node(3); root.left.left.parent = root.left;
 		root.left.right = new Node(7); root.left.right.parent = root.left;
@@ -27,17 +27,20 @@ public class InOrderSuccessorInBST {
 		root.right = new Node(18); root.right.parent = root;
 		root.right.left = new Node(17);  root.right.left.parent = root.right;
 		root.right.right = new Node(20); root.right.right.parent = root.right;
-		//3, 6, 7, 9, 13, 15, 17, 18, 20 null*/
+		//3, 6, 7, 9, 13, 15, 17, 18, 20 null
 
-    Node root = new Node(5);
+  /*  Node root = new Node(5);
     root.left = new Node(3); root.left.parent = root;
     root.left.left = new Node(1); root.left.left.parent = root.left;
-    root.right = new Node(7); root.right.parent = root;
+    root.right = new Node(7); root.right.parent = root; */
 
-		Node result = findInOrderSuccessor(root.left);
+		Node result = findInOrderSuccessor(root.left.right);
 		System.out.println(result == null ? "Not found" :  "In order successor = " + result.data);
+
+    Node result2 = findInOrderSuccessorWithNoParentPointer(root, root.left.right);
+		System.out.println(result == null ? "Not found" :  "In order successor with no parent = " + result2.data);
   }
-  /* Solution : This is Iterative Solution
+  /* Solution : When a pointer to parent is given
     0. check of node is null, then return null.
     1. Check for right child, if found return the minimum node of right subtree.
     2. If right child is null, return the parent whos value is greater than given node.
@@ -47,10 +50,26 @@ public class InOrderSuccessorInBST {
     if(node == null)
       return null;
 
-    if(node.right != null) { // get the minimum on right subtree
+    if(node.right != null) { // case 1 when right != null, get the minimum on right subtree
       return findMinimum(node.right);
-    } else {
+    } else {   // case 2, when right is null
       return findParent(node); // find parent whos value is greater than given node
+    }
+  }
+  /* Solution : When NO parent pointer available
+    0. check of node is null, then return null.
+    1. Check for right child, if found return the minimum node of right subtree.
+    2. If right child is null, search from root as similar to binary search and find the parent
+    Runtime : O(H), Space : O(1)
+    */
+  private static Node findInOrderSuccessorWithNoParentPointer(Node root, Node node){
+    if(node == null)
+      return null;
+
+    if(node.right != null) { // case 1 when right != null, get the minimum on right subtree
+      return findMinimum(node.right);
+    } else {  // when node.right = null, do the normal binary search start from ROOT
+      return findSuccessor(root, node);
     }
   }
 
@@ -72,6 +91,21 @@ public class InOrderSuccessorInBST {
       temp = temp.left;
     }
     return temp;
+  }
+  // Find the successor of given node starting from root.
+  private static Node findSuccessor(Node root, Node node){
+    Node successor = null;
+    while(root != null) {
+      if(node.data < root.data){
+        successor = root;
+        root = root.left;
+      } else if(node.data > root.data) {
+        root = root.right;
+      } else {
+        break;
+      }
+    }
+    return successor;
   }
 
   private static class Node {
