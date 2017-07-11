@@ -2,14 +2,16 @@ import java.util.*;
 
 public class MaxSumSubArray {
   public static void main(String args[]) {
-    int[] a = {1,-3,2,5,-8};
-    //int[] a = {-2, -3, 4, -1, -2, 1, 8, -3};
+    //int[] a = {1,-3,2,5,-8};
+    //int[] a = {-2, -3, 4, -1, -2, 1, 5, -3 }; // 7
+    int[] a = {-2, -3, 4, -1, -2, 1, 8, -3};
     //int[] a = {-15, -2, -3, -4, -5, -10, -100};
-    //int[] a = {-6,2,-3,-4,-1,-5,-5};
+    //int[] a = {-6,2,-3,-4,-1,-5,-5}; //2
     System.out.println("array    = " + Arrays.toString(a));
     int[] subArray = findSubArrayWithMaximumSum(a);
     System.out.println("subarray = " + Arrays.toString(subArray));
-    //System.out.println("max sum,solution2 = " +findMaximumSumSubArrayV2(a));
+    System.out.println("max sum,solution1 = " +findMaximumSumSubArrayV1(a));
+    System.out.println("max sum,solution2 = " +findMaximumSumSubArrayV2(a));
   }
   /**
   Solution 1: Loop through the array and maintain the current sum and max sum seen so far.
@@ -36,11 +38,11 @@ public class MaxSumSubArray {
     int currSum = 0;
     for(int i = 0; i < arr.length; i++) {
       currSum += arr[i];
-      if(currSum > maxSum) { // update the maxsum when currSum in larger
-        maxSum = currSum;
-      }
       if(currSum < 0) // reset the currSum to '0' when it is -ve.
         currSum = 0;
+      else if(currSum > maxSum) { // update the maxsum when currSum in larger
+        maxSum = currSum;
+      }
     }
     return maxSum;
   }
@@ -57,16 +59,15 @@ public class MaxSumSubArray {
     int maxStartIndex = 0;
     int maxEndIndex = 0;
 
-    for(int i = 0; i < N; i++) {
-      currentSum += arr[i];
-      if(currentSum > maxSum) {
-        maxSum = currentSum; // update max sum
+    for(int i = 0; i < N; i++){
+      currentSum = currentSum + arr[i];
+      if(currentSum < 0) {
+        currentSum = 0; // reset the currentSum to '0'
+        currentStartIndex = i + 1; //update currentStartIndex when currentSum -ve.
+      } else if(currentSum > maxSum){ // only check when currentSum is positive.
+        maxSum = currentSum; //update max sum
         maxStartIndex = currentStartIndex; //update maxStartIndex
         maxEndIndex = i; // update the max index when maxSum is updated.
-      }
-      if(currentSum < 0) {
-        currentStartIndex = i + 1; //update startIndex when currentSum -ve.
-        currentSum = 0; // reset the currentSum to '0'
       }
     }
     System.out.println("max sum  = " + maxSum);
