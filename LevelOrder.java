@@ -1,5 +1,6 @@
  /*
   problem : Given a binary tree, create a linked list of all the nodes at each level and return.
+  from book : cracking the coding interview
   */
 import java.util.*;
 public class LevelOrder {
@@ -16,7 +17,11 @@ public class LevelOrder {
     2 3
     4 5 6 7
     */
-    System.out.println(" Solution 1 ");
+    System.out.print("Level Order  : ");
+    levelOrder(root);
+    System.out.println();
+
+    System.out.println("solution 1, Nodes at each level : ");
     List<List<Node>> allNodesByLevel = getNodesByLevelV1(root);
     for(List<Node> byLevel : allNodesByLevel) {
       for(int i = 0; i < byLevel.size(); i++){
@@ -24,7 +29,7 @@ public class LevelOrder {
       }
       System.out.println();
     }
-    System.out.println(" Solution 2 ");
+    System.out.println("solution 2, Nodes at each level : ");
     List<List<Node>> result = getNodesByLevelV2(root);
     for(List<Node> byLevel : allNodesByLevel) {
       for(int i = 0; i < byLevel.size(); i++){
@@ -61,20 +66,22 @@ public class LevelOrder {
     return allNodes;
   }
 
-  /* Solution 2:  This uses Level Order Traversal using Queue (two queues)
-     Runtime : O(N), Space : O(N) - for result,
-     Note : This is more efficient in space as it doesn't need external storage */
+  /* Solution 2:  This doesn't use any external storage (Queue)
+     Runtime : O(N), Space : O(N) - only for storing result,
+     Note : This is more efficient in space as it doesn't need external storage
+  */
+
    private static List<List<Node>> getNodesByLevelV2(Node node){
     if(node == null) return null;
     List<List<Node>> allNodes = new LinkedList<>();
     List<Node> level = new LinkedList<>();
-    level.add(node);
+    level.add(node); // add root node
 
     while(level.size() > 0) {
-      allNodes.add(level);
+      allNodes.add(level);  // add root level list to result
       List<Node> parents = level;
       level = new LinkedList<Node>();
-      for(Node n : parents){
+      for(Node n : parents){ // add all left and right children in next level
         if(n.left != null){
           level.add(n.left);
         }
@@ -85,6 +92,20 @@ public class LevelOrder {
     }
     return allNodes;
   }
+
+  private static void levelOrder(Node node){
+    if(node == null) return;
+    Queue<Node> q = new LinkedList<>();
+    q.add(node);
+    while(!q.isEmpty()) {
+      Node temp = q.poll();
+      System.out.print(temp.data + " ");
+      if(temp.left != null)
+         q.add(temp.left);
+      if(temp.right != null)
+         q.add(temp.right);
+    }
+   }
 
   private static class Node{
     private int data;
