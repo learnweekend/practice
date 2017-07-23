@@ -11,7 +11,7 @@
      root.left.left = new Node(5);
      root.left.right = new Node(15);
      System.out.println("isBST = " +checkBSTV1(root, Integer.MIN_VALUE, Integer.MAX_VALUE));
-     System.out.println("isBST = " +checkBSTV2(root, 5)); // 5 will be lowest node in the tree (leftmost node)
+     System.out.println("isBST = " +checkBSTV2(root)); // 5 will be lowest node in the tree (leftmost node)
    }
 
    /* solution 1 :  Uses pre-order traversal */
@@ -29,11 +29,20 @@
       The current node value should be greater than previous node value and
       the next node visited should be greater than the current node.
     */
+   private static boolean checkBSTV2(Node root){
+     Node node = root;
+     while(node.left != null){
+       node = node.left;
+     }
+     int previousValue = node.data;
+     return checkBSTV2(root, previousValue);
+   }
+
    private static boolean checkBSTV2(Node node, int previousValue){
     if(node == null)
         return true;
     return checkBSTV2(node.left, previousValue) && // left child
-                     node.data >= previousValue && // current node
+                     node.data >= previousValue && // current node, Note:  >=
                      checkBSTV2(node.right, previousValue = node.data); // right child
    }
 
