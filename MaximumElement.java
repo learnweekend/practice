@@ -1,5 +1,6 @@
 /*
- problem : Given an array of numbers that is first strictly increasing and then strictly decreasing, find the maximum number.
+ problem : Find maximum element in array of alternate sequences
+ Given an array of numbers that is first strictly increasing and then strictly decreasing, find the maximum number.
  example : input: 1, 2, 3, 4, 5, 4, 3, 2
            output: 5
  Note :  Consider all possible corner cases for input. return -1 if input is null or empty
@@ -26,7 +27,7 @@
 	if (arr.length == 1) return arr[0];
 	if (arr.length == 2)
 	    return arr[0] > arr[1] ? arr[0] : arr[1];
-        if(arr[0] > arr[1]) 
+        if(arr[0] > arr[1])
 	    return arr[0]; // this is to take care when array is sorted decreasing order
 	int start = 0;
 	int end = arr.length - 1;
