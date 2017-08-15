@@ -1,54 +1,47 @@
+ /*
+  problem : Reverse Words
+  Given an input string, reverse the string word by word.
+  For example,  Given s = "the sky is blue",  return "blue is sky the".
+  */
 
-/**
-  Create a function that reverses all the words in a string.
-  Example :  input --> The cat is red
-             output -> red is cat The
-*/
-public class ReverseWords {
-  public static void main(String args[]) {
-    String str = "The cat is red";
-    System.out.println("original      = " +str);
-    String reverseWords1 = reverseWordsV1(str);
-    String reverseWords2 = reverseWordsV2(str);
-    System.out.println("reverseWords1 = " +reverseWords1);
-    System.out.println("reverseWords2 = " +reverseWords2);
-  }
-  // Solution 1 : Use the split function on white space delimiter
-  //              and print the words from end of string array.
-  // Runtime    : O(N)
-  // Space      : O(N)
-  private static String reverseWordsV1(String theStr) {
-    if(theStr == null || theStr.length() == 0)
-        throw new IllegalArgumentException("Invalid input");
-    String[] words = theStr.split("\\s+");
-    StringBuilder sb = new StringBuilder();
-
-    for(int i = words.length - 1; i >= 0; i--) {
-      sb.append(words[i]);
-      sb.append(" ");
+  public class ReverseWords {
+    public static void main(String[] args) {
+      String str = "the sky is blue";
+      System.out.println("Reverse words = " + reverseWordsV1(str));
+      System.out.println("Reverse words = " + reverseWordsV2(str));
     }
-    return sb.toString();
-  }
-  // Solution 2:  This approach doesn't uses split function.
-  // Loop through the array from end and when you see a white space
-  // get the substring from white space and print.
-  // Runtime   : O(N)
-  // Space     : O(N) as need to return new string.
-  private static String reverseWordsV2(String theStr) {
-    if(theStr == null || theStr.length() == 0)
-        throw new IllegalArgumentException("Invalid input");
-    StringBuilder sb = new StringBuilder();
-    int N = theStr.length();
-    int temp = N;
 
-    for(int i = N - 1; i > 0; i--) {
-      char ch = theStr.charAt(i);
-      if(ch == ' ') {
-        sb.append(theStr.substring(i, temp));
-        temp = i;
+    public static String reverseWordsV1(String s) {
+      String[] strArr = s.split("\\s+");
+		  StringBuilder builder = new StringBuilder();
+		  for (int i = strArr.length - 1; i >= 0; i--) {
+			    builder.append(strArr[i]).append(" ");
+		  }
+		  return builder.toString().trim();
+    }
+
+    public static String reverseWordsV2(String s) {
+      if(s == null) return null;
+      String[] words = s.split("\\s+");
+      int start = 0;
+      int end = words.length - 1;
+
+      while(start <= end) {
+        swap(words, start, end);
+        start++;
+        end--;
       }
+      StringBuilder sb = new StringBuilder();
+      for(String str : words){
+        sb.append(str);
+        sb.append(" ");
     }
-    sb.append(" " +theStr.substring(0, temp));
     return sb.toString().trim();
+   }
+
+    public static void swap(String[] words, int i, int j){
+        String temp = words[i];
+        words[i] = words[j];
+        words[j] = temp;
+    }
   }
-}
