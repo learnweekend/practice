@@ -1,39 +1,40 @@
 /*
- problem : Has Pathsum in Binary tree (https://leetcode.com/problems/path-sum/description/)
- Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up
- all the values along the path equals the given sum.
- For example: Given the below binary tree and sum = 22
-              5
-             / \
-            4   8
-           /   / \
-          11  13  4
-         /  \      \
-        7    2      1
+ problem : Has Pathsum in Binary tree
+ Given a binary tree t and an integer s, determine whether there is a root to leaf path in t
+ such that the sum of vertex values equals s
+ https://codefights.com/interview-practice/task/TG4tEMPnAc3PnzRCs
+     4
+    / \
+   1   3
+  /   / \
+ -2  1   2
+   \    / \
+    3  -2 -3
  */
  public class HasPathSum {
    public static void main(String[] args) {
-     Node root = new Node(5);
-     root.left = new Node(4);
-     root.right = new Node(8);
-     root.left.left = new Node(11);
-     root.left.left.left = new Node(7);
-     root.left.left.right = new Node(2);
+     Node root = new Node(4);
+     root.left = new Node(1);
+     root.right = new Node(3);
+     root.left.left = new Node(-2);
+     root.left.left.right = new Node(3);
+     root.right.left = new Node(1);
+     root.right.right = new Node(2);
+     root.right.right.left = new Node(-2);
+     root.right.right.right = new Node(-3);
 
-     root.right.left = new Node(13);
-     root.right.right = new Node(4);
-     root.right.right.right = new Node(1);
-
-     int sum = 22;
-     boolean hasPathSum = checkPathSum(root, sum);
+     /*Node root = new Node(8);
+     root.right = new Node(3);*/  // sum = 8
+     int sum = 6;
+     boolean hasPathSum = hasPathSum(root, sum);
      System.out.println(hasPathSum);
    }
 
-   /*public static boolean hasPathSum(Node root, int sum){
+   public static boolean hasPathSum(Node root, int sum){
      if(root == null) return sum == 0; // to check base case if root is null and sum is 0
      return checkPathSum(root, sum);
-   }*/
-   // Runtme : O(N), Space : O(N) - due to recursive call stack
+   }
+
    private static boolean checkPathSum(Node root, int sum){
      if(root == null) return false;
      if(isLeaf(root) && root.data == sum) return true;
@@ -50,6 +51,10 @@
      private Node right;
      private Node(int val){
        this.data = val;
+     }
+     @Override
+     public String toString(){
+       return this.data + " ";
      }
    }
  }
