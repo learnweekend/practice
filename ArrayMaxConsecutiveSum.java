@@ -5,46 +5,71 @@ Example: For inputArray = [-2, 2, 5, -11, 6], the output should be arrayMaxConse
 The contiguous subarray that gives the maximum possible sum is [2, 5], with a sum of 7
 */
 public  class ArrayMaxConsecutiveSum {
-  public static void main(String[] args){
-    int[] a = { -2, 2, 5, -11, 6}; // 7
-    //int[] a = {11, -2, 1, -4, 5, -3, 2, 2, 2}; // 14
-    System.out.println(findMaxConsecutiveSum(a));
-    System.out.println(findMaxConsecutiveSumV2(a));
+public static void main(String args[]) {
+    //int[] a = {1,-3,2,5,-8};
+    //int[] a = {-2, -3, 4, -1, -2, 1, 5, -3 }; // 7
+    int[] a = {-2, -3, 4, -1, -2, 1, 8, -3};
+    //int[] a = {-15, -2, -3, -4, -5, -10, -100};
+    //int[] a = {-6,2,-3,-4,-1,-5,-5}; //2
+    System.out.println("array    = " + Arrays.toString(a));
+    int[] subArray = findSubArrayWithMaximumSum(a);
+    System.out.println("subarray = " + Arrays.toString(subArray));
+    System.out.println("max sum,solution1 = " +findMaximumSumSubArrayV1(a));
+    System.out.println("max sum,solution2 = " +findMaximumSumSubArrayV2(a));
   }
- /* Solution : Assign first element to currSum and maxSum
-  Loop through the array and calculate max of (currSum + nextElement, nextElement)
-  Calculate the max of (maxSum, currSum) and assign maxSum  if currSum > maxSum
-  Runtime : O(N),  Space   : O(1)
- */
-  private static int findMaxConsecutiveSum(int[] arr) {
-    if(arr == null || arr.length == 0)
-        throw new IllegalArgumentException();
-    int currSum = arr[0];
-    int maxSum = arr[0];
-
-    for(int i = 1; i < arr.length; i++) {   // start at i = 1
-      currSum = Math.max(currSum + arr[i], arr[i]);
-      maxSum = Math.max(maxSum, currSum);
-
-      if(currSum > maxSum)
+  /* Solution 1: Loop through the array and maintain the current sum and max sum seen so far.
+    Runtime  : O(N), Space : O(1)
+  */
+  private static int findMaximumSumSubArrayV1(int[] arr) {
+    int maximumSum = arr[0];
+    int currentSum = arr[0];
+    int N = arr.length;
+    for(int i = 1; i < N; i++) {
+      currentSum = Math.max(currentSum + arr[i], arr[i]);
+      maximumSum = Math.max(maximumSum, currentSum);
+    }
+    return maximumSum;
+  }
+  /* Solution 2: Loop through the array and maintain the current sum and max sum seen so far.
+     Runtime   : O(N), Space : O(1)
+  */
+  private static int findMaximumSumSubArrayV2(int[] arr) {
+    int maxSum = 0;
+    int currSum = 0;
+    for(int i = 0; i < arr.length; i++) {
+      currSum += arr[i];
+      if(currSum < 0) // reset the currSum to '0' when it is -ve.
+        currSum = 0;
+      else if(currSum > maxSum) { // update the maxsum when currSum in larger
         maxSum = currSum;
       }
-    return maxSum;
-  }
-
-  private static int findMaxConsecutiveSumV2(int[] arr) {
-    int currSum = 0;
-    int maxSum = Integer.MIN_VALUE;
-
-    for(int i = 0; i < arr.length; i++){
-      if(currSum <= 0)
-        currSum = arr[i];
-      else
-        currSum = currSum + arr[i];
-
-      if(currSum > maxSum)
-        maxSum = currSum;
     }
     return maxSum;
+  }
+/** This function calculate the maximum sum and also returns the array start and end indices
+  for which the maxSum is arrived.
+  */
+  private static int[] findSubArrayWithMaximumSum(int[] arr) {
+    int N = arr.length;
+    int currentSum = 0;
+    int maxSum = Integer.MIN_VALUE;
+    int currentStartIndex = 0;
+    int maxStartIndex = 0;
+    int maxEndIndex = 0;
+
+    for(int i = 0; i < N; i++){
+      currentSum = currentSum + arr[i];
+      if(currentSum < 0) {
+        currentSum = 0; // reset the currentSum to '0'
+        currentStartIndex = i + 1; //update currentStartIndex when currentSum -ve.
+      } else if(currentSum > maxSum){ // only check when currentSum is positive.
+        maxSum = currentSum; //update max sum
+        maxStartIndex = currentStartIndex; //update maxStartIndex
+        maxEndIndex = i; // update the max index when maxSum is updated.
+      }
+    }
+    System.out.println("largest sum  = " + maxSum);
+    System.out.println("start index  = " + maxStartIndex + ", end index = " + maxEndIndex);
+    return Arrays.copyOfRange(arr, maxStartIndex, maxEndIndex + 1); // return the array
   }
 }
