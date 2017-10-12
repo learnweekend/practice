@@ -4,10 +4,10 @@
  public class Expression {
    public static void main(String[] args) {
        System.out.println(evaluate("6+9-12-10")); // -7
-		   System.out.println(evaluate("-6+9-12-10")); // -19
-		   System.out.println(evaluate("-6-9-12-10")); // -37
-		   System.out.println(evaluate("6+9-12-1")); // 2
-		   System.out.println(evaluate("6+0-12-1")); // -7
+       System.out.println(evaluate("-6+9-12-10")); // -19
+       System.out.println(evaluate("-6-9-12-10")); // -37
+       System.out.println(evaluate("6+9-12-1")); // 2
+       System.out.println(evaluate("6+0-12-1")); // -7
    }
 
    public static int evaluate(String expression){
