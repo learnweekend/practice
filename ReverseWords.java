@@ -13,11 +13,11 @@
 
     public static String reverseWordsV1(String s) {
       String[] strArr = s.split("\\s+");
-		  StringBuilder builder = new StringBuilder();
-		  for (int i = strArr.length - 1; i >= 0; i--) {
-			    builder.append(strArr[i]).append(" ");
-		  }
-		  return builder.toString().trim();
+      StringBuilder builder = new StringBuilder();
+      for (int i = strArr.length - 1; i >= 0; i--) {
+	 builder.append(strArr[i]).append(" ");
+      }
+      return builder.toString().trim();
     }
 
     public static String reverseWordsV2(String s) {
