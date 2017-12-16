@@ -5,12 +5,12 @@ import java.util.*;
  */
  public class ParenthesesMatch {
 	  public static void main(String args[]) {
-		    //String str = "{{}}[](){[()]}([])";
-        //String str = "{()[{({})[]()}]}([])";
-        String str = "()()";
-		    System.out.println(isBalancedV1(str));
-		    System.out.println(isBalancedV2(str));
-		    //System.out.println(isBalancedV3(str));
+	     //String str = "{{}}[](){[()]}([])";
+             //String str = "{()[{({})[]()}]}([])";
+             String str = "()()";
+	     System.out.println(isBalancedV1(str));
+	     System.out.println(isBalancedV2(str));
+	     //System.out.println(isBalancedV3(str));
 	  }
 	/* Solution 1: Store the valid parenthese in Map
 	 * Loop through the input and push to stack if the characer is present in the map
