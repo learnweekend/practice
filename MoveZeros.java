@@ -1,4 +1,3 @@
-package com.all;
 
 import java.util.Arrays;
 
