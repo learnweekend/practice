@@ -1,10 +1,37 @@
-/*
- problem : Clone linked list with random pointers
+/**
+ https://leetcode.com/problems/copy-list-with-random-pointer/description/
+ A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.
+	Return a deep copy of the list.
  */
  import java.util.*;
 
  public class CloneList {
-
+	 /**
+	  * Recursive Solution
+	  */
+	 public static Node cloneListRecursive(Node head){
+		 if(head == null) 
+			 return null;
+		 Map<Node, Node> map = new HashMap<>();
+		 return cloneListRecursive(head, map);
+	 }
+	 
+	 private static Node cloneListRecursive(Node node, Map<Node, Node> map){
+		 if(node == null)
+			 return null;
+		 if(map.get(node) != null)  // base case, return the value if node is present in the map
+			 return map.get(node);
+		 map.put(node, new Node(node.data));  // if not, create a new node and put in map
+		 map.get(node).next = cloneListRecursive(node.next, map);  // recursive call for next
+		 map.get(node).random = cloneListRecursive(node.random, map); // recursive call for random
+		 return map.get(node); // return the head to cloned list
+	 }
+	 
+	 /**Solution 1 : 
+	  * 1. Traverse the original list and store the mapping of old node and newly created nodes in Map.
+	  * 2. Traverse the orignal list or Map and get the next and random nodes from map and update the references for newly created nodes
+	  * 3. Runtime : O(N), Space : O(N);
+	  */
    public static Node cloneListUsingMap(Node head){
      if(head == null) return null;
      Map<Node, Node> nodeMap = new HashMap<>();
@@ -23,92 +50,56 @@
      }
      return nodeMap.get(head);
    }
-
+   /**
+    * solution 2: without using the additional space
+    * 1. Traverse the original list and create a new nodes and append to the original node (list)
+    * 2. Traverse the original list and assign the random pointers.
+    * 3. separate the cloned list from original list.
+    * 
+    * space : O(1), runtime : O(N)
+    */
    public static Node cloneList(Node head){
-
-     /*     if (head == null)
-             return null;
-
-         // pass 1
-         Node node = head;
-         Node clonedNode = new Node(node.data);
-         clonedNode.next = node.next;
-
-         node.next = clonedNode;
-         node = node.next.next;
-         while (node != null) {
-             clonedNode = new Node(node.data);
-             clonedNode.next =  node.next;
-             node.next = clonedNode;
-             node = node.next.next;
-         }
-         print(head);
-         // pass 2
-         node = head;
-         while (node != null) {
-             Node randomNode = node.random;
-             if (randomNode != null)
-                 node.next.random = randomNode.next;
-             node = node.next.next;
-         }
-         print(head);
-         // pass 3
-         node = head;
-         Node clonedHead = node.next;
-         Node clonedTemp = node.next;
-         while (node != null) {
-             node.next = clonedTemp.next;
-             node = node.next;
-             if (node != null) {
-                 clonedTemp.next = node.next;
-                 clonedTemp = clonedTemp.next;
-             }
-         }
-         return clonedHead;
-         */
-
-     if(head == null) return null;
-     // first pass : create new nodes and insert inbetween nodes.
-     Node curr = head;  //  created
-     while(curr != null){
-       Node currNext = curr.next;
-       Node newNode = new Node(curr.data * 10);
-       newNode.random = curr.random;
-       curr.next = newNode;
-       newNode.next = currNext;
-       curr = newNode.next;
-     }
-     print(head);
-
-     //second pass: copy the random pointers.
-     curr = head;
-     while(curr != null){
-       Node randomNode = curr.next;
-       if(randomNode != null) {
-         curr.next.random = randomNode.next;
+   	  if (head == null)
+           return null;
+       
+       // pass 1  --> created new node and append to the original list(node)
+       Node node = head;
+       while (node != null) {
+           Node clonedNode = new Node(node.data); 
+           clonedNode.next =  node.next;
+           node.next = clonedNode;
+           node = node.next.next;
        }
-       curr = curr.next.next;
-     }
-     print(head);
-
-     // third pass, remove or cut the original list.
-     curr = head;
-     Node clonedList = head.next;
-     Node clonedTemp = head.next;
-
-     while(curr != null && clonedTemp != null){
-       curr.next = clonedTemp.next;
-       head = head.next;
-       if(head != null){
-         clonedTemp.next = head.next;
-         clonedTemp = clonedTemp.next;
+       
+    
+       // pass 2  --> copy the random nodes
+       node = head;
+       print(node);
+       while (node != null) {
+           Node randomNode = node.random;
+           if (randomNode != null)
+               node.next.random = randomNode.next;
+           node = node.next.next;
        }
-     }
-     print(head);
-     return clonedList;
+       
+       // pass 3   --> seperate the cloned list from original list
+       node = head;
+       print(node);
+       Node clonedHead = node.next;
+       Node clonedTemp = node.next;
+       while (node != null) {
+           node.next = clonedTemp.next;
+           node = node.next;
+           if (node != null) {
+               clonedTemp.next = node.next;
+               clonedTemp = clonedTemp.next;
+           }
+       }
+       return clonedHead;
    }
 
-   private static void print(Node list){
+   private static void print(Node x){
+     Node list = x;
      while(list != null){
        System.out.print(list.data + " ");
        list = list.next;
@@ -138,9 +129,12 @@
      head.next.next.next.random = head.next.next; //4, 3
      head.next.next.next.next.random = head; //5, 1
 
-     //Node result = cloneListUsingHash(head);
-     Node result = cloneListUsingMap(head);
+     /*Node result = cloneListUsingMap(head);
      print(head);
-     print(result);
+     print(result);*/
+    // Node result2 = cloneListRecursive(head);
+     //print(result2);
+     Node result3 = cloneList(head);
+     print(result3);
    }
  }
