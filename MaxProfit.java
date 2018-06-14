@@ -7,7 +7,7 @@ package com.all;
 public class MaxProfit {
 	
 	/**
-	 * Solution : Use maintain the running minimum stock price and max running profit
+	 * Solution : maintain the running minimum stock price and max running profit
 	 * Kadane's algorithms
 	 * runtime : O(N), space : O(1).
 	 */
