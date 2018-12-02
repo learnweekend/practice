@@ -32,7 +32,6 @@ public class URLShortener {
 	 *  Repeat this 6 times and append the each character.
 	 */
 	public String encode(String longUrl) {
-		
 		if (longUrl == null || longUrl.length() == 0)
 			throw new IllegalArgumentException("Long URL cannot be null or empty!");
 
@@ -51,12 +50,8 @@ public class URLShortener {
 	}
 
 	public String decode(String shortUrl) {
-		
 		if (shortUrl == null || shortUrl.length() == 0)
 			throw new IllegalArgumentException("shortUrl cannot be null or empty!");
-
-		if (shortUrl == null || shortUrl.length() == 0)
-			return null;
 
 		if (cache.containsKey(shortUrl))
 			return cache.get(shortUrl);
