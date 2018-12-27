@@ -7,7 +7,7 @@ public class SearchTwoDMatrix {
 		int rowIndex = 0;
 		int colIndex = matrix[0].length - 1;
 
-		while (rowIndex >= 0 && rowIndex < matrix.length && colIndex >= 0 && colIndex < matrix[0].length) {
+		while (rowIndex < matrix.length && colIndex >= 0) {
 			int value = matrix[rowIndex][colIndex];
 			if (target == value) {
 				return new int[] { rowIndex, colIndex };
