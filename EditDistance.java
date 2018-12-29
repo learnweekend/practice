@@ -1,5 +1,3 @@
-package expert.medium;
-
 /**
  * https://leetcode.com/problems/edit-distance/description/
  * 
@@ -12,8 +10,33 @@ package expert.medium;
  * Explanation: horse -> rorse (replace 'h' with 'r') rorse -> rose (remove 'r') rose -> ros (remove 'e')
  */
 public class EditDistance {
+	// Runtime : O(3^N) | Space : O(3 ^ N)
+	public static int editDistanceRecursion(String x, String y) {
+		if (x.isEmpty())
+			return y.length();
+		
+		if (y.isEmpty())
+			return x.length();
+		
+		return editDistanceRecursion(x, y, x.length(), y.length());
+	}
 
-	//Runtime : O(N^2) | Space : O(NM)
+	private static int editDistanceRecursion(String x, String y, int m, int n) {
+		if (m == 0)
+			return n;
+
+		if (n == 0)
+			return m;
+
+		if (x.charAt(m - 1) == y.charAt(n - 1)) {
+			return editDistanceRecursion(x, y, m - 1, n - 1);
+		} else {
+			return 1 + Math.min(editDistanceRecursion(x, y, m - 1, n),
+					Math.min(editDistanceRecursion(x, y, m, n - 1), editDistanceRecursion(x, y, m - 1, n - 1)));
+		}
+	}
+
+	// Runtime : O(N^2) | Space : O(NM)
 	// Space can be reduced to min(N, M)
 	public static int levenshteinDistance(String x, String y) {
 		if (x.length() == 0)
@@ -46,5 +69,6 @@ public class EditDistance {
 		String x = "horse";
 		String y = "ros";
 		System.out.println(levenshteinDistance(x, y));
+		System.out.println(editDistanceRecursion(x, y));
 	}
 }
