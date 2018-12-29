@@ -11,6 +11,21 @@
     String s = "carerac";
     System.out.println(s + " : is Palindrome Permutation ? : " + isPermutationPalindrome(s));
   }
+  
+  	// solution 1 : 
+	public static boolean canPermutePalindrome(String s) {
+		int[] count = new int[128];
+		int uniques = 0;
+		for (char c : s.toCharArray()) {
+			count[c]++;
+			if (count[c] % 2 == 0) {
+				uniques--;
+			} else {
+				uniques++;
+			}
+		}
+		return uniques <= 1;
+	}
 
   public static boolean isPermutationPalindrome(String s) {
     if(s == null) throw new IllegalArgumentException();
