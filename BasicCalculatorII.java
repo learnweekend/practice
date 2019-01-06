@@ -13,7 +13,7 @@ import java.util.Stack;
 	https://leetcode.com/problems/basic-calculator-ii/description/
  */
 
-public class BasicCalculator {
+public class BasicCalculatorII {
 	
 	/*
 	 * Solution :  
