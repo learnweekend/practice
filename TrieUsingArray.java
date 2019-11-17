@@ -10,7 +10,7 @@ public class TrieUsingArray {
 
 	public void insert(String word) {
 		TrieNode curr = root;
-
+		
 		for (char ch : word.toCharArray()) {
 			TrieNode child = curr.children[ch];
 
@@ -27,7 +27,9 @@ public class TrieUsingArray {
 	 * Search a given word
 	 */
 	public boolean search(String word) {
-		return get(root, word, 0) != null;
+		 TrieNode node = get(root, word, 0);
+       if(node == null) return false;
+       return node.isWord;
 	}
 
 	public boolean startsWith(String prefix) {
